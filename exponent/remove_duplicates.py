@@ -1,0 +1,63 @@
+# linear solm
+def identify_adjacent(s: str, k: int) -> str:
+    stack = []
+    for x in s:
+        if len(stack) == 0:
+            stack.append((x, 1))
+        else:
+            if stack[-1][0] == x:
+                if stack[-1][1] + 1 == k:
+                    stack.pop()
+                else:
+                    stack[-1] = (x, stack[-1][1] + 1)
+            else:
+                stack.append((x, 1))
+    
+    result = []
+    for x in stack:
+        for i in range(x[1]):
+            result.append(x[0])
+    return "".join(result)
+
+# inefficient soln
+# def identify_adjacent(s: str, k: int) -> str:
+#     s = list(s)
+#     if k == 1:
+#         return ""
+#     elif len(s) <= 1:
+#         return s
+#     pop_list = []
+#     done = False
+#     while not done:
+#         done = True
+#         start = 0
+#         end = start + k
+#         while end < len(s) + 1:
+#             if is_same(s[start:end]):
+#                 if len(s) > end:
+#                     s = s[:start] + s[end:]
+#                 else:
+#                     s = s[:start]
+#                 start = end + 1
+#                 end = start + k
+#                 done = False
+#                 #print(s)
+#             else:
+#                 start += 1
+#                 end += 1
+#     return "".join(s)
+
+def is_same(aloa) -> bool:
+    if len(aloa) <= 1:
+        return True
+    x = aloa[0]
+    for i in range(1, len(aloa)):
+        if aloa[i] != x:
+            return False
+    return True
+
+# debug your code below
+print(identify_adjacent("abcd", 2)) # 'abcd
+print(identify_adjacent("deeedbbcccbdaa", 3)) # aa
+print(identify_adjacent("pbbcggttciiippooaais", 2)) # ps
+print(identify_adjacent("aaabbbacd", 3)) # 'acd'
