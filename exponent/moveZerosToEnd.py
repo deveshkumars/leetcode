@@ -12,6 +12,23 @@ def moveZerosToEnd(arr: List[int]) -> List[int]:
                 arr[right] = temp
             left += 1
     return arr
+
+# alternative solution
+def moveZerosToEnd(arr: List[int]) -> List[int]:
+
+    nextSpot = 0
+    zerocounter = 0
+    for idx, element in enumerate(arr):
+        if arr[idx] != 0:
+            arr[nextSpot] = arr[idx]
+            nextSpot += 1
+        else:
+            zerocounter += 1
+    for idx in range(len(arr)-1, len(arr)-1-zerocounter, -1):
+        arr[idx] = 0
+
+    return arr
+    # runs in O(n)
             
     
 # debug your code below

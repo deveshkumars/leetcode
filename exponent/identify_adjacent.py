@@ -19,6 +19,41 @@ def identify_adjacent(s: str, k: int) -> str:
             result.append(x[0])
     return "".join(result)
 
+# another linear soln 5/31/2026
+def identify_adjacent(s: str, k: int) -> str:
+    stack = []
+    for char in list(s):
+        if not stack or stack[-1][0] != char:
+            stack.append([char, 1])
+        else:
+            stack[-1][1] += 1
+            if stack[-1][1] == k:
+                stack.pop()
+    outputstr = ""
+    for item in stack:
+        outputstr += item[0] * item[1]
+    return outputstr
+
+# another inefficient soln 5/31/2026
+def identify_adjacent(s: str, k: int) -> str:
+    s = list(s)
+    stop = False
+    while not stop:
+        stop = True
+        lastchar, lastcharcount = "", 0
+        for idx, char in enumerate(s):
+            if char == lastchar:
+                lastcharcount += 1
+                if lastcharcount == k:
+                    s = s[:idx-k+1] + s[idx+1:]
+                    stop = False
+                    break
+            else:
+                lastchar = char
+                lastcharcount = 1               
+    
+    return "".join(s)
+
 # inefficient soln
 # def identify_adjacent(s: str, k: int) -> str:
 #     s = list(s)
